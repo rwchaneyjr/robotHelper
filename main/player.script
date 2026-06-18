@@ -1,4 +1,4 @@
-local NORMAL_SPEED = 10
+local NORMAL_SPEED = 7
 local FAST_SPEED = 18
 local SLOW_SPEED = 4
 
