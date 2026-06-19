@@ -8,8 +8,8 @@ local FALL_FAIL_Y = -300
 
 local PICKUP_DISTANCE = 18
 local HAZARD_DISTANCE = 1
-local BELT_DISTANCE = 32
-local DOOR_DISTANCE = 24
+local BELT_DISTANCE = 1
+local DOOR_DISTANCE = 1
 
 local chests = {
 	"/chest"
@@ -55,7 +55,6 @@ function init(self)
 	self.failed = false
 	self.level_complete = false
 
-	-- Lift robot out of the floor at start so it does not get stuck.
 	local pos = go.get_position()
 	pos.y = pos.y + 8
 	go.set_position(pos)
@@ -68,6 +67,9 @@ function update(self, dt)
 	if self.failed or self.level_complete then
 		return
 	end
+
+	-- Important: assume falling unless collision proves we are on ground.
+	self.grounded = false
 
 	local pos = go.get_position()
 	local speed = NORMAL_SPEED
@@ -86,10 +88,8 @@ function update(self, dt)
 		end
 	end
 
-	-- Always move right
 	pos.x = pos.x + speed * dt
 
-	-- Gravity
 	self.velocity_y = self.velocity_y + GRAVITY * dt
 	pos.y = pos.y + self.velocity_y * dt
 
