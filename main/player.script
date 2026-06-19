@@ -1,15 +1,21 @@
+<<<<<<< Updated upstream
 local NORMAL_SPEED = 7
 local FAST_SPEED = 18
 local SLOW_SPEED = 4
+=======
+local NORMAL_SPEED = 35
+local FAST_SPEED = 60
+local SLOW_SPEED = 12
+>>>>>>> Stashed changes
 
-local FLOOR_Y = -50
 local JUMP_FORCE = 600
 local GRAVITY = -1600
+local FALL_FAIL_Y = -300
 
-local PICKUP_DISTANCE = 5
-local HAZARD_DISTANCE = 1
-local BELT_DISTANCE = 24
-local DOOR_DISTANCE = 3
+local PICKUP_DISTANCE = 18
+local HAZARD_DISTANCE = 14
+local BELT_DISTANCE = 32
+local DOOR_DISTANCE = 24
 
 local chests = {
 	"/chest"
@@ -49,12 +55,16 @@ end
 function init(self)
 	msg.post(".", "acquire_input_focus")
 
-	self.speed = NORMAL_SPEED
 	self.velocity_y = 0
-	self.grounded = true
+	self.grounded = false
 	self.score = 0
 	self.failed = false
 	self.level_complete = false
+
+	-- Lift robot out of the floor at start so it does not get stuck.
+	local pos = go.get_position()
+	pos.y = pos.y + 8
+	go.set_position(pos)
 
 	print("GAME STARTED")
 	print("Score: 0")
@@ -66,60 +76,33 @@ function update(self, dt)
 	end
 
 	local pos = go.get_position()
+	local speed = NORMAL_SPEED
 
-	-- Auto Run
-	pos.x = pos.x + self.speed * dt
+	for _, id in ipairs(fast_belts) do
+		local belt_pos = safe_get_position(id)
+		if belt_pos and close_to(pos, belt_pos, BELT_DISTANCE) then
+			speed = FAST_SPEED
+		end
+	end
+
+	for _, id in ipairs(slow_belts) do
+		local belt_pos = safe_get_position(id)
+		if belt_pos and close_to(pos, belt_pos, BELT_DISTANCE) then
+			speed = SLOW_SPEED
+		end
+	end
+
+	-- Always move right
+	pos.x = pos.x + speed * dt
 
 	-- Gravity
 	self.velocity_y = self.velocity_y + GRAVITY * dt
 	pos.y = pos.y + self.velocity_y * dt
 
-	-- Floor Height
-	local current_floor = FLOOR_Y
-
-	-- If player is over a conveyor, use conveyor Y as the floor
-	for _, id in ipairs(fast_belts) do
-		local belt_pos = safe_get_position(id)
-
-		if belt_pos and math.abs(pos.x - belt_pos.x) < BELT_DISTANCE then
-			current_floor = belt_pos.y
-		end
-	end
-
-	-- Stand on floor or conveyor
-	if pos.y < current_floor then
-		pos.y = current_floor
-		self.velocity_y = 0
-		self.grounded = true
-	end
-
 	go.set_position(pos)
 
-	-- Reset speed
-	self.speed = NORMAL_SPEED
-
-	-- Fast Conveyors
-	for _, id in ipairs(fast_belts) do
-		local belt_pos = safe_get_position(id)
-
-		if belt_pos and close_to(pos, belt_pos, BELT_DISTANCE) then
-			self.speed = FAST_SPEED
-		end
-	end
-
-	-- Slow Conveyors
-	for _, id in ipairs(slow_belts) do
-		local belt_pos = safe_get_position(id)
-
-		if belt_pos and close_to(pos, belt_pos, BELT_DISTANCE) then
-			self.speed = SLOW_SPEED
-		end
-	end
-
-	-- Chests
 	for _, id in ipairs(chests) do
 		local chest_pos = safe_get_position(id)
-
 		if chest_pos and chest_pos.y > -9000 and close_to(pos, chest_pos, PICKUP_DISTANCE) then
 			self.score = self.score + 10
 			print("Score: " .. self.score)
@@ -127,10 +110,8 @@ function update(self, dt)
 		end
 	end
 
-	-- Hazards
 	for _, id in ipairs(hazards) do
 		local hazard_pos = safe_get_position(id)
-
 		if hazard_pos and close_to(pos, hazard_pos, HAZARD_DISTANCE) then
 			self.failed = true
 			print("FAIL")
@@ -138,13 +119,17 @@ function update(self, dt)
 		end
 	end
 
-	-- Door
 	local door_pos = safe_get_position(door)
-
 	if door_pos and close_to(pos, door_pos, DOOR_DISTANCE) then
 		self.level_complete = true
 		print("LEVEL COMPLETE")
 		print("FINAL SCORE: " .. self.score)
+	end
+
+	if pos.y < FALL_FAIL_Y then
+		self.failed = true
+		print("FAIL")
+		print("Press R to Restart")
 	end
 end
 
@@ -158,5 +143,20 @@ function on_input(self, action_id, action)
 
 	if action.pressed and action_id == hash("restart") then
 		msg.post("@system:", "reboot")
+	end
+end
+
+function on_message(self, message_id, message)
+	if message_id == hash("contact_point_response") then
+		if message.normal and message.distance then
+			if message.normal.y > 0.7 then
+				local pos = go.get_position()
+				pos.y = pos.y + message.normal.y * message.distance
+				go.set_position(pos)
+
+				self.grounded = true
+				self.velocity_y = 0
+			end
+		end
 	end
 end
