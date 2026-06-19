@@ -69,12 +69,16 @@ images {
 }
 images {
   image: "/main/tile_0060.png"
+  pivot_x: 0.0
+  pivot_y: 0.0
 }
 images {
   image: "/main/tile_0061.png"
 }
 images {
   image: "/main/tile_0100.png"
+  pivot_x: 0.0
+  pivot_y: 0.0
 }
 images {
   image: "/main/tile_0108.png"
@@ -90,9 +94,13 @@ images {
 }
 images {
   image: "/tile_0101.png"
+  pivot_x: 0.0
+  pivot_y: 0.0
 }
 images {
   image: "/tile_0102.png"
+  pivot_x: 0.0
+  pivot_y: 0.0
 }
 images {
   image: "/main/tile_0048.png"

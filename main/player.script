@@ -2,12 +2,12 @@ local NORMAL_SPEED = 10
 local FAST_SPEED = 20
 local SLOW_SPEED = 6
 
-local JUMP_FORCE = 600
+local JUMP_FORCE = 300
 local GRAVITY = -1600
 local FALL_FAIL_Y = -300
 
 local PICKUP_DISTANCE = 18
-local HAZARD_DISTANCE = 1
+local HAZARD_DISTANCE = 0
 local BELT_DISTANCE = 1
 local DOOR_DISTANCE = 1
 
