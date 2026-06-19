@@ -212,7 +212,7 @@ embedded_instances {
   "    index: 0\\n"
   "    count: 3\\n"
   "  }\\n"
-  "  data: 55.781055\\n"
+  "  data: 72.165375\\n"
   "  data: 10.0\\n"
   "  data: 10.0\\n"
   "}\\n"
@@ -224,7 +224,7 @@ embedded_instances {
     y: -9.0
   }
   scale3 {
-    x: 0.6
+    x: 0.8
     y: 0.1
   }
 }
@@ -264,7 +264,7 @@ embedded_instances {
   "    index: 0\\n"
   "    count: 3\\n"
   "  }\\n"
-  "  data: 35.369427\\n"
+  "  data: 45.701298\\n"
   "  data: 10.0\\n"
   "  data: 10.0\\n"
   "}\\n"
@@ -272,10 +272,11 @@ embedded_instances {
   "}\n"
   ""
   position {
+    x: -0.6
     y: -9.0
   }
   scale3 {
-    x: 0.4
+    x: 0.5
     y: 0.1
   }
 }
@@ -298,7 +299,7 @@ embedded_instances {
     y: -13.0
   }
   scale3 {
-    x: 0.381067
+    x: 0.2
     y: 0.5
   }
 }
