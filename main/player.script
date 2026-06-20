@@ -1,15 +1,15 @@
-local NORMAL_SPEED = 10
-local FAST_SPEED = 20
+local NORMAL_SPEED = 5
+local FAST_SPEED = 10
 local SLOW_SPEED = 6
 
-local JUMP_FORCE = 300
-local GRAVITY = -1600
+local JUMP_FORCE = 375
+local GRAVITY = -1100
 local FALL_FAIL_Y = -300
 
-local PICKUP_DISTANCE = 18
+local PICKUP_DISTANCE = 5
 local HAZARD_DISTANCE = 0
-local BELT_DISTANCE = 1
-local DOOR_DISTANCE = 1
+local BELT_DISTANCE = 20
+local DOOR_DISTANCE = 5
 
 local chests = {
 	"/chest"
@@ -21,11 +21,13 @@ local hazards = {
 
 local fast_belts = {
 	"/Conveyor",
-	"/Conveyor1",
-	"/Conveyor2"
+	"/Conveyor1"
+	
 }
 
 local slow_belts = {
+	"/Conveyor2",
+	"/Conveyor3"
 }
 
 local door = "/door1"
