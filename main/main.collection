@@ -498,7 +498,7 @@ embedded_instances {
   ""
   position {
     x: 23.0
-    y: -2.2
+    y: -2.39
   }
 }
 embedded_instances {
@@ -580,7 +580,7 @@ embedded_instances {
     y: -13.0
   }
   scale3 {
-    x: 0.2
+    x: 0.3
     y: 0.5
   }
 }
@@ -591,7 +591,7 @@ embedded_instances {
   children: "Ground5"
   data: ""
   position {
-    x: 51.0
+    x: 50.0
   }
 }
 embedded_instances {
@@ -630,7 +630,7 @@ embedded_instances {
   "    index: 0\\n"
   "    count: 3\\n"
   "  }\\n"
-  "  data: 63.067688\\n"
+  "  data: 47.065685\\n"
   "  data: 10.0\\n"
   "  data: 10.0\\n"
   "}\\n"
@@ -642,7 +642,7 @@ embedded_instances {
     y: -9.0
   }
   scale3 {
-    x: 0.7
+    x: 0.5
     y: 0.1
   }
 }
@@ -773,7 +773,7 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 58.7
+    x: 56.7
     y: -11.0
   }
 }
@@ -781,11 +781,9 @@ embedded_instances {
   id: "conveyerBelts1"
   children: "Conveyor4"
   children: "Conveyor5"
-  children: "Conveyor6"
-  children: "Conveyor7"
   data: ""
   position {
-    x: 55.0
+    x: 23.0
   }
 }
 embedded_instances {
@@ -873,91 +871,7 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "Conveyor6"
-  data: "embedded_components {\n"
-  "  id: \"sprite\"\n"
-  "  type: \"sprite\"\n"
-  "  data: \"default_animation: \\\"tile_0100\\\"\\n"
-  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
-  "size {\\n"
-  "  x: 18.0\\n"
-  "  y: 18.0\\n"
-  "}\\n"
-  "textures {\\n"
-  "  sampler: \\\"texture_sampler\\\"\\n"
-  "  texture: \\\"/items.atlas\\\"\\n"
-  "}\\n"
-  "\"\n"
-  "  scale {\n"
-  "    x: 0.3\n"
-  "    y: 0.2\n"
-  "  }\n"
-  "}\n"
-  "embedded_components {\n"
-  "  id: \"collisionobject\"\n"
-  "  type: \"collisionobject\"\n"
-  "  data: \"type: COLLISION_OBJECT_TYPE_STATIC\\n"
-  "mass: 0.0\\n"
-  "friction: 0.1\\n"
-  "restitution: 0.5\\n"
-  "group: \\\"ground\\\"\\n"
-  "mask: \\\"player\\\"\\n"
-  "embedded_collision_shape {\\n"
-  "  shapes {\\n"
-  "    shape_type: TYPE_BOX\\n"
-  "    position {\\n"
-  "      x: 5.0\\n"
-  "      y: -2.0\\n"
-  "    }\\n"
-  "    rotation {\\n"
-  "    }\\n"
-  "    index: 0\\n"
-  "    count: 3\\n"
-  "  }\\n"
-  "  data: 5.57967\\n"
-  "  data: 1.8334595\\n"
-  "  data: 10.0\\n"
-  "}\\n"
-  "\"\n"
-  "}\n"
-  ""
-  position {
-    x: -12.61
-    y: 5.0
-  }
-  scale3 {
-    x: 1.067076
-  }
-}
-embedded_instances {
-  id: "Conveyor7"
-  data: "embedded_components {\n"
-  "  id: \"sprite\"\n"
-  "  type: \"sprite\"\n"
-  "  data: \"default_animation: \\\"tile_0102\\\"\\n"
-  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
-  "size {\\n"
-  "  x: 18.0\\n"
-  "  y: 18.0\\n"
-  "}\\n"
-  "textures {\\n"
-  "  sampler: \\\"texture_sampler\\\"\\n"
-  "  texture: \\\"/items.atlas\\\"\\n"
-  "}\\n"
-  "\"\n"
-  "  scale {\n"
-  "    x: 0.3\n"
-  "    y: 0.2\n"
-  "  }\n"
-  "}\n"
-  ""
-  position {
-    x: -7.0
-    y: 5.0
-  }
-}
-embedded_instances {
-  id: "doors1"
+  id: "finalDoor"
   children: "door2"
   children: "door3"
   data: ""
@@ -993,7 +907,7 @@ embedded_instances {
   ""
   position {
     x: 23.0
-    y: -2.2
+    y: -2.39
   }
 }
 embedded_instances {
@@ -1169,11 +1083,11 @@ embedded_instances {
 embedded_instances {
   id: "pipe4"
   children: "pipe5"
-  children: "pipe6"
   children: "pipe7"
   data: ""
   position {
-    x: -12.0
+    x: 3.0
+    y: -1.0
   }
 }
 embedded_instances {
@@ -1197,61 +1111,37 @@ embedded_instances {
   "    y: 0.15\n"
   "  }\n"
   "}\n"
-  ""
-  position {
-    x: 62.0
-    y: -6.0
-  }
-}
-embedded_instances {
-  id: "pipe6"
-  data: "embedded_components {\n"
-  "  id: \"sprite\"\n"
-  "  type: \"sprite\"\n"
-  "  data: \"default_animation: \\\"tile_0110\\\"\\n"
-  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
-  "size {\\n"
-  "  x: 18.0\\n"
-  "  y: 18.0\\n"
-  "}\\n"
-  "textures {\\n"
-  "  sampler: \\\"texture_sampler\\\"\\n"
-  "  texture: \\\"/items.atlas\\\"\\n"
-  "}\\n"
-  "\"\n"
-  "  scale {\n"
-  "    x: 0.15\n"
-  "    y: 0.15\n"
-  "  }\n"
-  "}\n"
   "embedded_components {\n"
   "  id: \"collisionobject\"\n"
   "  type: \"collisionobject\"\n"
-  "  data: \"type: COLLISION_OBJECT_TYPE_DYNAMIC\\n"
-  "mass: 1.0\\n"
+  "  data: \"type: COLLISION_OBJECT_TYPE_STATIC\\n"
+  "mass: 0.0\\n"
   "friction: 0.1\\n"
   "restitution: 0.5\\n"
-  "group: \\\"ground\\\"\\n"
-  "mask: \\\"player\\\"\\n"
+  "group: \\\"default\\\"\\n"
+  "mask: \\\"default\\\"\\n"
   "embedded_collision_shape {\\n"
   "  shapes {\\n"
   "    shape_type: TYPE_BOX\\n"
   "    position {\\n"
+  "      x: 1.0\\n"
   "    }\\n"
   "    rotation {\\n"
   "    }\\n"
   "    index: 0\\n"
   "    count: 3\\n"
   "  }\\n"
-  "  data: 4.508347\\n"
-  "  data: 1.9571375\\n"
+  "  data: 3.1458275\\n"
+  "  data: 1.938125\\n"
   "  data: 10.0\\n"
   "}\\n"
+  "event_collision: false\\n"
+  "event_trigger: false\\n"
   "\"\n"
   "}\n"
   ""
   position {
-    x: 65.0
+    x: 62.4
     y: -6.0
   }
 }
@@ -1278,7 +1168,7 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 68.0
+    x: 65.0
     y: -6.0
   }
 }

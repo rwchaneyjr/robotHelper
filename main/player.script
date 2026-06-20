@@ -1,15 +1,18 @@
-local NORMAL_SPEED = 5
+local NORMAL_SPEED = 7.8
 local FAST_SPEED = 10
-local SLOW_SPEED = 6
+local SLOW_SPEED = 5
 
 local JUMP_FORCE = 375
 local GRAVITY = -1100
 local FALL_FAIL_Y = -300
 
 local PICKUP_DISTANCE = 5
-local HAZARD_DISTANCE = 5
+local HAZARD_DISTANCE = 0
 local BELT_DISTANCE = 20
 local DOOR_DISTANCE = 5
+
+local PIPE_DISTANCE_X = 0
+local PIPE_HIT_HEIGHT = 1
 
 local CAMERA = "/Camera"
 local CAMERA_OFFSET_X = 0
@@ -24,12 +27,23 @@ local hazards = {
 	"/acid1"
 }
 
+local pipes = {
+	"/pipe5",
+	"/pipe7"
+}
+
 local fast_belts = {
 	"/conveyerBelts",
-	"/conveyerBelts1"
+	"/conveyerBelts1",
+	"/conveyerBelts4",
+	"/conveyerBelts5",
+	"/conveyerBelts6",
+	"/conveyerBelts7"
 }
 
 local slow_belts = {
+	"/conveyerBelts2",
+	"/conveyerBelts3"
 }
 
 local level1_door = "/doors"
@@ -127,6 +141,20 @@ function update(self, dt)
 			self.failed = true
 			print("FAIL")
 			print("Press R to Restart")
+		end
+	end
+
+	for _, id in ipairs(pipes) do
+		local pipe_pos = safe_get_position(id)
+		if pipe_pos then
+			local close_x = math.abs(pos.x - pipe_pos.x) <= PIPE_DISTANCE_X
+			local too_low = pos.y <= pipe_pos.y + PIPE_HIT_HEIGHT
+
+			if close_x and too_low then
+				self.failed = true
+				print("FAIL - hit pipe")
+				print("Press R to Restart")
+			end
 		end
 	end
 
