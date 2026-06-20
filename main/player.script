@@ -7,30 +7,33 @@ local GRAVITY = -1100
 local FALL_FAIL_Y = -300
 
 local PICKUP_DISTANCE = 5
-local HAZARD_DISTANCE = 0
+local HAZARD_DISTANCE = 5
 local BELT_DISTANCE = 20
 local DOOR_DISTANCE = 5
 
+local CAMERA = "/Camera"
+local CAMERA_OFFSET_X = 0
+
 local chests = {
-	"/chest"
+	"/chest",
+	"/chest1"
 }
 
 local hazards = {
-	"/acid"
+	"/acid",
+	"/acid1"
 }
 
 local fast_belts = {
-	"/Conveyor",
-	"/Conveyor1"
-	
+	"/conveyerBelts",
+	"/conveyerBelts1"
 }
 
 local slow_belts = {
-	"/Conveyor2",
-	"/Conveyor3"
 }
 
-local door = "/door1"
+local level1_door = "/doors"
+local level2_door = "/doors1"
 
 local function close_to(a, b, distance)
 	return vmath.length(a - b) <= distance
@@ -48,6 +51,14 @@ local function hide_object(id)
 	pcall(go.set_position, vmath.vector3(-9999, -9999, 0), id)
 end
 
+local function follow_camera_x(player_pos)
+	local camera_pos = safe_get_position(CAMERA)
+	if camera_pos then
+		camera_pos.x = player_pos.x + CAMERA_OFFSET_X
+		go.set_position(camera_pos, CAMERA)
+	end
+end
+
 function init(self)
 	msg.post(".", "acquire_input_focus")
 
@@ -56,12 +67,13 @@ function init(self)
 	self.score = 0
 	self.failed = false
 	self.level_complete = false
+	self.started_level2 = false
 
 	local pos = go.get_position()
 	pos.y = pos.y + 8
 	go.set_position(pos)
 
-	print("GAME STARTED")
+	print("LEVEL 1 STARTED")
 	print("Score: 0")
 end
 
@@ -70,7 +82,6 @@ function update(self, dt)
 		return
 	end
 
-	-- Important: assume falling unless collision proves we are on ground.
 	self.grounded = false
 
 	local pos = go.get_position()
@@ -97,6 +108,10 @@ function update(self, dt)
 
 	go.set_position(pos)
 
+	if self.started_level2 then
+		follow_camera_x(pos)
+	end
+
 	for _, id in ipairs(chests) do
 		local chest_pos = safe_get_position(id)
 		if chest_pos and chest_pos.y > -9000 and close_to(pos, chest_pos, PICKUP_DISTANCE) then
@@ -115,10 +130,18 @@ function update(self, dt)
 		end
 	end
 
-	local door_pos = safe_get_position(door)
-	if door_pos and close_to(pos, door_pos, DOOR_DISTANCE) then
+	local level1_door_pos = safe_get_position(level1_door)
+	if not self.started_level2 and level1_door_pos and close_to(pos, level1_door_pos, DOOR_DISTANCE) then
+		self.started_level2 = true
+		follow_camera_x(pos)
+		print("LEVEL 1 COMPLETE")
+		print("LEVEL 2 STARTED")
+	end
+
+	local level2_door_pos = safe_get_position(level2_door)
+	if level2_door_pos and close_to(pos, level2_door_pos, DOOR_DISTANCE) then
 		self.level_complete = true
-		print("LEVEL COMPLETE")
+		print("VICTORY")
 		print("FINAL SCORE: " .. self.score)
 	end
 
