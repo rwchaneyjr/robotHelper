@@ -105,4 +105,7 @@ images {
 images {
   image: "/main/tile_0048.png"
 }
+images {
+  image: "/builtins/assets/images/logo/logo_blue_512.png"
+}
 extrude_borders: 2

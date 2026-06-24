@@ -1,0 +1,41 @@
+
+local function show(self, proxy)
+	if self.current_proxy then
+		msg.post(self.current_proxy, "unload")
+		self.current_proxy = nil
+	end
+	msg.post(proxy, "async_load")
+end
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	self.current_proxy = nil
+	msg.post("#", "show_game_over")
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("show_game_over") then
+		show(self, "#game_over")
+	elseif message_id == hash("show_main") then
+		show(self, "#main")
+	elseif message_id == hash("proxy_loaded") then
+		self.current_proxy = sender
+		msg.post(sender, "enable")
+	end
+end
+
+
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("touch") and action.pressed then
+		local button = gui.get_node("button")
+		if gui.pick_node(button, action.x, action.y) then
+			msg.post("00000:/loader#loader", "show_main")
+			print("button clicked!")
+		end
+	end
+end

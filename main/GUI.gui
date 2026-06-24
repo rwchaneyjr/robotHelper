@@ -1,0 +1,211 @@
+script: "/main/GUI.gui_script"
+fonts {
+  name: "default"
+  font: "/builtins/fonts/default.font"
+}
+nodes {
+  position {
+    x: 495.0
+    y: 384.0
+  }
+  size {
+    x: 1000.0
+    y: 700.0
+  }
+  type: TYPE_BOX
+  id: "next_button"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 34.0
+    y: -161.0
+  }
+  scale {
+    x: 3.0
+    y: 3.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "NEXT LEVEL"
+  font: "default"
+  id: "next_text"
+  parent: "next_button"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 50.0
+    y: 85.0
+  }
+  scale {
+    x: 3.5
+    y: 3.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "LEVEL 1 COMPLETED"
+  font: "default"
+  id: "level_complete_text"
+  parent: "next_button"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 495.0
+    y: 366.0
+  }
+  size {
+    x: 1000.0
+    y: 700.0
+  }
+  type: TYPE_BOX
+  id: "restart_button"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 21.0
+    y: -211.0
+  }
+  scale {
+    x: 3.5
+    y: 3.5
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "RESET"
+  font: "default"
+  id: "restart_text"
+  parent: "restart_button"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 15.0
+    y: 169.0
+  }
+  scale {
+    x: 3.5
+    y: 3.5
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "GAME OVER"
+  font: "default"
+  id: "game_over_text"
+  parent: "restart_button"
+  inherit_alpha: true
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "<text>"
+  font: "default"
+  id: "score_text"
+  parent: "restart_button"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 520.0
+    y: 544.0
+  }
+  size {
+    x: 1000.0
+    y: 700.0
+  }
+  type: TYPE_BOX
+  id: "replay_button"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 34.0
+    y: -105.0
+  }
+  scale {
+    x: 3.0
+    y: 3.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "REPLAY"
+  font: "default"
+  id: "replay_text"
+  parent: "replay_button"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 50.0
+    y: 197.0
+  }
+  scale {
+    x: 3.5
+    y: 3.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "VICTORY !"
+  font: "default"
+  id: "victory_text"
+  parent: "replay_button"
+  inherit_alpha: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT
