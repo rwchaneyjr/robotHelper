@@ -171,7 +171,7 @@ function update(self, dt)
 
 	if self.started_level2
 	and level2_door_pos
-	and math.abs(pos.x - level2_door_pos.x-28) <= DOOR_DISTANCE then
+	and math.abs(pos.x - level2_door_pos.x-25) <= DOOR_DISTANCE then
 		print("VICTORY")
 
 		self.level_complete = true
