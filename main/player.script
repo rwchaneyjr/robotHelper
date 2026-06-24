@@ -33,7 +33,7 @@ local slow_belts = {
 	"/conveyerBelts1/Conveyor5"
 }
 
-local level1_door = "/doors"
+local level1_door = "/door"
 local level2_door = "/finalDoor"
 
 local function close_to(a, b, distance)
