@@ -1,4 +1,4 @@
-local NORMAL_SPEED = 7.8
+local NORMAL_SPEED = 8
 local FAST_SPEED = 10
 local SLOW_SPEED = 5
 
@@ -10,6 +10,7 @@ local PICKUP_DISTANCE = 1
 local HAZARD_DISTANCE = 0
 local BELT_DISTANCE = 6
 local DOOR_DISTANCE = 1
+local DOOR_EXIT_OFFSET = 3
 
 local PIPE_DISTANCE_X = 0
 local PIPE_HIT_HEIGHT = 1
@@ -66,7 +67,7 @@ local function fail(self)
 	end
 
 	self.failed = true
-	print("DEBUG: SHOWING FAIL SCREEN")
+	print("FAIL")
 	msg.post("/GUI#gui", "show_restart")
 end
 
@@ -114,15 +115,11 @@ function update(self, dt)
 	pos.y = pos.y + self.velocity_y * dt
 
 	go.set_position(pos)
+	follow_camera_x(pos)
 
 	if pos.y < FALL_FAIL_Y then
-		print("DEBUG: FAIL - Fell below map")
 		fail(self)
 		return
-	end
-
-	if self.started_level2 then
-		follow_camera_x(pos)
 	end
 
 	for _, id in ipairs(chests) do
@@ -138,7 +135,6 @@ function update(self, dt)
 	for _, id in ipairs(hazards) do
 		local hazard_pos = safe_get_position(id)
 		if hazard_pos and close_to(pos, hazard_pos, HAZARD_DISTANCE) then
-			print("DEBUG: FAIL - Hit Acid")
 			fail(self)
 			return
 		end
@@ -151,7 +147,6 @@ function update(self, dt)
 			local too_low = pos.y <= pipe_pos.y + PIPE_HIT_HEIGHT
 
 			if close_x and too_low then
-				print("DEBUG: FAIL - Hit Pipe")
 				fail(self)
 				return
 			end
@@ -166,18 +161,12 @@ function update(self, dt)
 		print("LEVEL 1 COMPLETE")
 
 		self.level_complete = true
+		self.velocity_y = 0
+
 		msg.post("/GUI#gui", "show_level_complete", { score = self.score })
 		return
 	end
-	if level1_door_pos then
-		print("PLAYER:", pos.x, pos.y)
-		print("DOOR:", level1_door_pos.x, level1_door_pos.y)
-		print("DISTANCE:", vmath.length(pos - level1_door_pos))
-	else
-		print("LEVEL 1 DOOR NOT FOUND")
-	end
 
-	print("started_level2 =", self.started_level2)
 	local level2_door_pos = safe_get_position(level2_door)
 
 	if self.started_level2
@@ -186,6 +175,8 @@ function update(self, dt)
 		print("VICTORY")
 
 		self.level_complete = true
+		self.velocity_y = 0
+
 		msg.post("/GUI#gui", "show_victory", { score = self.score })
 		return
 	end
@@ -216,11 +207,18 @@ function on_message(self, message_id, message)
 		end
 
 	elseif message_id == hash("start_level2") then
+		print("LEVEL 2 STARTED")
+
 		self.started_level2 = true
 		self.level_complete = false
 		self.failed = false
+		self.grounded = false
 		self.velocity_y = 0
 
-		print("LEVEL 2 STARTED")
+		local pos = go.get_position()
+		pos.x = pos.x + DOOR_EXIT_OFFSET
+		go.set_position(pos)
+
+		follow_camera_x(pos)
 	end
 end
